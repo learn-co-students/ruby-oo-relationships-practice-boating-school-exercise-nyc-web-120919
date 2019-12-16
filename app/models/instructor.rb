@@ -13,27 +13,41 @@ class Instructor
     end 
 
     def pass_student(student, test_name)
-        if student.tests.find {|test| test.test_name == test_name} == nil 
-            BoatingTest.new(student, test_name, self, "passed")
+        my_test = student.tests.find {|test| test.test_name == test_name}
+        if my_test
+            my_test.status = "passed"
         else 
-            student.tests.each do |test|
-                if test.test_name == test_name 
-                test.status = "passed"
-                end
-            end 
+            BoatingTest.new(student, test_name, self, "passed") 
         end 
+        
+        #if student.tests.find {|test| test.test_name == test_name} == nil 
+        #    BoatingTest.new(student, test_name, self, "passed")
+        #else 
+        #    student.tests.each do |test|
+        #        if test.test_name == test_name 
+        #        test.status = "passed"
+        #        end
+        #    end 
+        #end 
     end   
     
     def fail_student(student, test_name)
-        if student.tests.find {|test| test.test_name == test_name} == nil 
+        my_test = student.tests.find {|test| test.test_name == test_name}
+        if my_test
+            my_test.status = "failed"
+        else 
             BoatingTest.new(student, test_name, self, "failed")
-        else    
-            student.tests.each do |test|
-                if test.test_name == test_name
-                test.status = "failed"
-                end 
-            end
-        end 
+        end   
+
+        #if student.tests.find {|test| test.test_name == test_name} == nil 
+        #    BoatingTest.new(student, test_name, self, "failed")
+        #else    
+        #    student.tests.each do |test|
+        #        if test.test_name == test_name
+        #        test.status = "failed"
+        #        end 
+        #    end
+        #end 
     end 
 
 end
